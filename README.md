@@ -42,4 +42,3 @@ If you have Python 2.x, spin up the server with python -m SimpleHTTPServer 8000 
 
 For Python 3.x, you can use python3 -m http.server 8000
 
-With your server running, visit the site: http://localhost:8000.
