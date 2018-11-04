@@ -6,6 +6,7 @@ let urlToCache = [
     './restaurant.html',
     './css/styles.css',
     './data/restaurants.json',
+    './js/sw_registration.js',
     './img/1.jpg',
     './img/2.jpg',
     './img/3.jpg',
@@ -21,27 +22,21 @@ let urlToCache = [
     './js/dbhelper.js',
 
 ];
-self.addEventListener('install', function (event) {
-
-    event.waitUntil(
-        caches.open(staticCacheName).then(function (cache) {
-            console.log(cache);
-            return cache.addAll(urlToCache);
-
-        }).catch(erroe => {
-            console.log(error);
+self.addEventListener('install', function(event) {
+	event.waitUntil(
+		caches.open(staticCacheName).then(function(cache) {
+			return cache.addAll(urlsToCache);
         })
     );
 });
-
-self.addEventListener('activate', function (event) {
+self.addEventListener('activate', function(event) {
     event.waitUntil(
-        caches.keys().then(function (cacheNames) {
+        caches.keys().then(function(cacheNames) {
             return Promise.all(
-                cacheNames.filter(function (cacheName) {
+                cacheNames.filter(function(cacheName) {
                     return cacheName.startsWith('restaurant-') &&
                         cacheName != staticCacheName;
-                }).map(function (cacheName) {
+                }).map(function(cacheName) {
                     return caches.delete(cacheName);
                 })
             );
@@ -49,9 +44,13 @@ self.addEventListener('activate', function (event) {
     );
 });
 
-self.addEventListener('fetch', function (event) {
+
+/**
+ * Fetching for offline content viewing
+ */
+self.addEventListener('fetch', function(event) {
     event.respondWith(
-        caches.match(event.request).then(function (response) {
+        caches.match(event.request).then(function(response) {
             return response || fetch(event.request);
         })
     );
