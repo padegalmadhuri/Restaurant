@@ -6,3 +6,4 @@ if ('serviceWorker' in navigator) {
 	.catch(function() {
 		console.log('Registration failed!');
 	});
+}
