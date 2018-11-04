@@ -52,13 +52,7 @@ self.addEventListener('activate', function(event) {
 /**
  * Fetching for offline content viewing
  */
-//self.addEventListener('fetch', function(event) {
-  //  event.respondWith(
-    //    caches.match(event.request).then(function(response) {
-      //      return response || fetch(event.request);
-        //})
-   // );
-//});
+
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
